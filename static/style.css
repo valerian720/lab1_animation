@@ -1,0 +1,59 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/*  */
+#scene {
+  display: flex;
+  width: 100%;
+  height: 720px;
+  background-color: lightcyan;
+  justify-content: center;
+  flex-direction: column;
+}
+#scene button {
+  height: 4em;
+  width: 10em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#scenario {
+  margin: 3em;
+}
+
+/*  */
+#aqarium {
+  display: none;
+}
+
+.fish {
+  height: 100px;
+  width: 100px;
+}
+.forward_fish {
+    animation: fishMoveForward 10s linear infinite;
+}
+.reverce_fish {
+    animation: fishMoveReverce 10s linear infinite;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+}
+
+@keyframes fishMoveForward {
+  0% {
+    margin-left: -100px;
+  }
+  100% {
+    margin-left: 100%;
+  }
+}
+
+@keyframes fishMoveReverce {
+  0% {
+    margin-left: 100%;
+  }
+  100% {
+    margin-left: -100px;
+  }
+}
