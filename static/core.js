@@ -2,6 +2,15 @@
 function getRandomInt(maximum, minimum) {
   return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
 }
+
+function addDeathEvent(fish) {
+  fish.addEventListener('mouseenter', (e) => {
+    e.target.classList.add('dead_fish');
+
+    // e.target.classList.remove('reverce_fish');
+    // e.target.classList.remove('forward_fish');
+  });
+}
 //
 const fishCount = 5; // количество рыб на экране -1
 const minSpeed = 4;
@@ -24,6 +33,8 @@ function addFishes() {
       newFish.classList.add('reverce_fish');
     }
     newFish.style.setProperty('-webkit-animation-duration', `${getRandomInt(minSpeed, maxSpeed)}s`);
+    addDeathEvent(newFish);
+    //
     aqarium.appendChild(newFish);
   }
 }
@@ -33,8 +44,5 @@ document.querySelector('#scene button').addEventListener('click', () => {
   goToAquarium();
   addFishes();
 });
-document.querySelector('#aqarium .fish').addEventListener('mouseenter', () => {
-  alert('asd');
-  console.log("asdasd");
-});
-console.log(document.querySelector('#aqarium .fish'));
+
+addDeathEvent(document.querySelector('#aqarium .fish'));

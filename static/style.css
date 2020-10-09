@@ -40,6 +40,11 @@ body {
     transform: scaleX(-1);
 }
 
+.dead_fish{
+    -webkit-transform: scaleY(-1);
+    transform: scaleY(-1);
+}
+
 @keyframes fishMoveForward {
   0% {
     margin-left: -100px;
@@ -57,3 +62,12 @@ body {
     margin-left: -100px;
   }
 }
+
+@keyframes fishFall {
+    0% {
+      margin-left: 100%;
+    }
+    100% {
+      margin-left: -100px;
+    }
+  }
