@@ -10,6 +10,8 @@ body {
   background-color: lightcyan;
   justify-content: center;
   flex-direction: column;
+
+  overflow: hidden;
 }
 #scene button {
   height: 4em;
@@ -21,7 +23,9 @@ body {
 #scenario {
   margin: 3em;
 }
-
+.proto {
+    display: none;
+}
 /*  */
 #aqarium {
   display: none;
@@ -40,9 +44,13 @@ body {
     transform: scaleX(-1);
 }
 
-.dead_fish{
-    -webkit-transform: scaleY(-1);
-    transform: scaleY(-1);
+.barebone{
+    /* -webkit-transform: scaleY(-1); */
+    /* transform: scaleY(-1); */
+    transform: rotate(-90deg);
+    animation: fishFall 5s linear ;
+    position: absolute;
+    z-index: 2;
 }
 
 @keyframes fishMoveForward {
@@ -65,9 +73,10 @@ body {
 
 @keyframes fishFall {
     0% {
-      margin-left: 100%;
+      margin-top: 0;
     }
     100% {
-      margin-left: -100px;
+      margin-top: 1000px;
+        /* display: none; */
     }
   }
