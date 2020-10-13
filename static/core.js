@@ -1,5 +1,10 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable no-use-before-define */
+function dateInSeconds() {
+  return new Date().getTime() / 1000;
+}
+let killAwailable = dateInSeconds();
+//
 function getRandomInt(maximum, minimum) {
   return Math.floor(Math.random() * (maximum - minimum + 1)) + minimum;
 }
@@ -8,24 +13,36 @@ function getAquarium() {
   return document.querySelector('#aqarium');
 }
 
-function createBarebone(origin) {
+function addProp(parent, origin, proto) {
   const position = origin.getBoundingClientRect();
 
-  const aqarium = getAquarium();
-  const newBarebone = document.querySelector('.barebone').cloneNode(true);
-  newBarebone.classList.remove('proto');
+  const element = proto.cloneNode(true);
 
-  newBarebone.style.left = `${position.left}px`;
-  newBarebone.style.top = `${position.top}px`;
+  element.classList.remove('proto');
+  element.style.left = `${position.left}px`;
+  element.style.top = `${position.top}px`;
 
-  aqarium.appendChild(newBarebone);
+  parent.appendChild(element);
 
-  //  самоуничтожение через 5 сек
+  //  самоуничтожение через 3 сек
   setTimeout(() => {
-    newBarebone.remove();
-  }, 5000);
+    element.remove();
+  }, 3000);
 }
 
+function createBarebone(origin) {
+  const newBarebone = document.querySelector('.barebone').cloneNode(true);
+  addProp(getAquarium(), origin, newBarebone);
+}
+
+function createBubbles(origin) {
+  const newBubble = document.querySelector('.bubble').cloneNode(true);
+
+  addProp(getAquarium(), origin, newBubble);
+  setTimeout(() => {
+    addProp(getAquarium(), origin, newBubble);
+  }, 250);
+}
 //
 const fishCount = 5; // количество рыб на экране
 const minSpeed = 4;
@@ -62,13 +79,19 @@ function addFishes(amount = fishCount) {
 //
 function addDeathEvent(fish) {
   fish.addEventListener('mouseenter', (e) => {
-    e.target.classList.add('dead_fish');
+    if (killAwailable < dateInSeconds()) {
+      killAwailable = dateInSeconds() + 0.1;
 
-    createBarebone(e.target);
+      e.target.classList.add('transparent');
 
-    e.target.remove();
+      createBarebone(e.target);
+      createBubbles(e.target);
 
-    addFishes(1);
+      setTimeout(() => {
+        e.target.remove();
+        addFishes(1);
+      }, 3000);
+    }
   });
 }
 // /////////////////////////////
